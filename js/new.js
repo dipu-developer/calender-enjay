@@ -51,8 +51,8 @@ function renderMonthView(year, month) {
   });
 
   let html = `<div class="month" id="month">
-                      <div class="month-name">${monthName} ${year}</div>
-                      <div class="days" id="days">`;
+                        <div class="month-name">${monthName} ${year}</div>
+                        <div class="days" id="days">`;
 
   // Add day labels
   const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -79,7 +79,7 @@ function renderMonthView(year, month) {
   }
 
   html += `</div>
-                </div>`; // Close month div
+                  </div>`; // Close month div
 
   return html;
 }
@@ -96,25 +96,6 @@ function addNotePrompt(dateKey) {
     // Render the notes
     renderNotes();
   }
-}
-
-function renderNotes() {
-  // Get notes from localStorage
-  const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
-  // Generate HTML for notes
-  let notesHTML = "";
-  for (const dateKey in storedNotes) {
-    notesHTML += `<p class="d-flex jc"><span><strong>${dateKey}:</strong> ${storedNotes[dateKey]}</span> <img src="img/minus.svg" alt="minus"  class="delete-note minus" data-date="${dateKey}"></p>`;
-  }
-  // Display notes in the container
-  notesContainer.innerHTML = notesHTML;
-  const deleteButtons = document.querySelectorAll(".delete-note");
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const dateKey = this.getAttribute("data-date");
-      deleteNote(dateKey);
-    });
-  });
 }
 
 function showNext() {
@@ -196,4 +177,53 @@ function deleteNote(dateKey) {
     // Render the notes
     renderNotes();
   }
+}
+
+// Function to render the calendar with notes below each date
+function renderMonthView(year, month) {
+  // Previous code remains unchanged
+
+  // Add cells for each day in the month
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateKey = `${year}-${month}-${day}`;
+    html += `<div class="day" data-date="${dateKey}" onclick="addNotePrompt('${dateKey}')">${day}</div>`;
+    // Add a container for notes below each date
+    html += `<div class="notes-container" id="notes-${dateKey}"></div>`;
+  }
+
+  // Next code remains unchanged
+}
+
+// Function to render notes below the particular date
+function renderNotesForDate(dateKey) {
+  const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
+  const notesContainer = document.getElementById(`notes-${dateKey}`);
+  if (!notesContainer) return; // If container not found, exit
+
+  let notesHTML = "";
+  if (dateKey in storedNotes) {
+    // If notes exist for the date
+    storedNotes[dateKey].forEach((note) => {
+      notesHTML += `<p>${note}</p>`;
+    });
+  }
+  notesContainer.innerHTML = notesHTML;
+}
+
+// Function to add a note for a particular date
+function addNotePrompt(dateKey) {
+  // Similar to previous implementation
+  // Instead of storing single note per date, store array of notes per date
+}
+
+// Function to delete a note for a particular date
+function deleteNoteForDate(dateKey, noteIndex) {
+  // Similar to previous implementation
+  // Instead of deleting single note, remove note from array of notes for the date
+}
+
+// Function to render all notes for the calendar
+function renderAllNotes() {
+  // Similar to previous implementation
+  // Render notes for all dates using renderNotesForDate function
 }

@@ -34,10 +34,12 @@ body {
   padding: 10px;
   border-radius: 50px;
 }
+
 .delete:hover {
   background-color: #EFF0F0;
 }
-.label{
+
+.label {
   background-color: #002d75db;
   padding: 10px !important;
   font-size: 14px !important;
@@ -184,7 +186,8 @@ body {
 .select-dropdown:focus {
   border-color: #333;
 }
-.minus{
+
+.minus {
   width: 30px;
 }
 
@@ -217,20 +220,58 @@ body {
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
   margin-bottom: 10px;
-  align-items: center;
 }
 
 .day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
   font-size: 12px;
   cursor: pointer;
+  border: 1px solid #ccc;
 
+}
+
+.empty {
+  border: none !important;
 }
 
 .day:hover {
   background-color: #2b78e3ee;
   color: #fff;
+}
+
+.green {
+  background-color: #34A853 !important;
+}
+
+.tooltiptext {
+  position: absolute;
+  top: 25px;
+  color: #fff;
+  min-width: 100px;
+  width: auto;
+  visibility: hidden;
+  padding: 20px;
   border-radius: 10px;
+  background: #002d75db;
+  box-shadow: 5px 5px 9px #ababab,
+    -5px -5px 9px #ffffff;
+  transition: opacity 0.3s;
+}
+.d-none{
+  display: none !important;
+}
+.tit {
+  position: relative;
+  /* display: inline-block; */
+  cursor: pointer;
+}
+.tit:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+  z-index: 100000;
 }
 
 .notes-container {
