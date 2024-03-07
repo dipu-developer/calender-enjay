@@ -29,9 +29,7 @@ function renderCalendar() {
       html = renderMonthView(currentYear, currentMonth);
       break;
     case "week":
-      // html = renderWeeksView(currentYear, currentMonth);
-      html = displayTasks();
-      console.log("week is select");
+      html = createCalendar();
       break;
     default:
       break;
@@ -39,6 +37,8 @@ function renderCalendar() {
 
   yearlyCalendar.innerHTML = html;
 }
+
+
 
 function renderYearView(year) {
   let html = "";
@@ -54,12 +54,20 @@ function renderMonthView(year, month) {
     month: "long",
   });
   // console.log(month)
-  let html = `<div class="month" id="month">
-                  <div class="month-name">${monthName} ${year}</div>
-                  <div class="days" id="days">`;
+  
 
+  let html = `<div class="month" id="month">
+                  <div class="days" id="days">`;
+                  let dayLabels=[]
   // Add day labels
-  const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  if(viewSelect.value){
+    document.getElementById("showdata").innerHTML = `${year} ${monthName}`
+    dayLabels = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  }
+  if (viewSelect.value === "year"){
+    document.getElementById("showdata").innerHTML = year
+    dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  }
   for (let i = 0; i < 7; i++) {
     html += `<div class="day label">${dayLabels[i]}</div>`;
   }
